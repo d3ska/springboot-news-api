@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import pl.deska.springbootlatestnewsapi.model.News;
-import pl.deska.springbootlatestnewsapi.service.NewsService;
+import pl.deska.springbootlatestnewsapi.repo.NewsRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -16,16 +16,16 @@ import java.util.Optional;
 @Controller
 public class NewsController {
 
-    private NewsService newsService;
+    private NewsRepository newsRepo;
 
     @Autowired
-    public NewsController(NewsService newsService) {
-        this.newsService = newsService;
+    public NewsController(NewsRepository newsService) {
+        this.newsRepo = newsService;
     }
 
     @GetMapping
     public String showNews(Model model){
-        List<News> newsList = newsService.findAll();
+        List<News> newsList = newsRepo.findAll();
         model.addAttribute("newsList", newsList);
         return "home";
     }
@@ -33,7 +33,7 @@ public class NewsController {
 
     @GetMapping("/update/{id}")
     public String showUpdateNewsForm(@PathVariable Long id, Model model){
-        Optional<News> optionalNews = newsService.findById(id);
+        Optional<News> optionalNews = newsRepo.findById(id);
             News news = optionalNews.get();
             model.addAttribute("news",news);
             return "update-news";
@@ -41,7 +41,7 @@ public class NewsController {
 
     @PostMapping("/updateNews")
     public String updateNews(@ModelAttribute News newsToUpdate){
-        newsService.save(newsToUpdate);
+        newsRepo.save(newsToUpdate);
         return "redirect:/";
     }
 }

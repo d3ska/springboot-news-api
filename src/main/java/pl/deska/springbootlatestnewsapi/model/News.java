@@ -3,6 +3,7 @@ package pl.deska.springbootlatestnewsapi.model;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "news")
 public class News {
 
     @Id

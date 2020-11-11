@@ -1,24 +1,23 @@
-package pl.deska.springbootlatestnewsapi.service;
+package pl.deska.springbootlatestnewsapi.repo;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Repository;
 import pl.deska.springbootlatestnewsapi.model.News;
 import pl.deska.springbootlatestnewsapi.parser.DataParser;
-import pl.deska.springbootlatestnewsapi.repo.NewsRepository;
 
 import java.util.List;
 import java.util.Optional;
 
-@Service
-public class NewsService {
+@Repository
+public class NewsRepoImpl {
 
     private NewsRepository newsRepo;
     private DataParser dataParser;
 
     @Autowired
-    public NewsService(NewsRepository newsRepo, DataParser dataParser) {
+    public NewsRepoImpl(NewsRepository newsRepo, DataParser dataParser) {
         this.newsRepo = newsRepo;
         this.dataParser = dataParser;
     }
